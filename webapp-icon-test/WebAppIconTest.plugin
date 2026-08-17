@@ -1,17 +1,9 @@
-#!name = Web App 主屏幕图标测试
-#!desc = 独立测试：为 example.com 注入自定义 apple-touch-icon，不影响现有插件
-#!author = Lain Test
-#!system = iOS,iPadOS
-#!system_version = 16.4
-#!loon_version = 3.5.1(978)
-#!tag = WebApp,测试
-#!type = normal
-
-[Argument]
-iconUrl = input,"https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png",tag=图标URL,desc=HTTPS PNG 直链；以后只需替换 icon.png 或修改这里的地址
+#!name= Web App 主屏幕图标测试 · Legacy
+#!desc= 兼容旧版 Loon：为 example.com 注入自定义 apple-touch-icon；独立测试，不影响现有插件。
+#!author= OpenAI
 
 [Rewrite]
-response if ${url} ~= /^https:\/\/example\.com(?:\/|$)/ && ${response.header['Content-Type']} ~= /^text\/html(?:;|$)/i then response.body.replace(/<\/head>/i, "<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"${iconUrl}\"><link rel=\"icon\" href=\"${iconUrl}\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"></head>")
+^https:\/\/example\.com\/?(?:\?.*)?$ response-body-replace-regex (?i)<\/head> <link\x20rel="apple-touch-icon"\x20sizes="180x180"\x20href="https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=2"><link\x20rel="icon"\x20href="https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=2"><meta\x20name="apple-mobile-web-app-capable"\x20content="yes"><\/head>
 
-[Mitm]
+[MITM]
 hostname = example.com
