@@ -1,8 +1,8 @@
 /**
  * Wenku8 Mobile v0.7 - Pure Remote Loon Injector
- * v4: inject only an external browser loader from jsDelivr.
+ * v5: inject Safari-compatible browser loader from jsDelivr.
  */
-const INJECT = '<script id="w8m-loon-v07-remote" src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07-browser-loader.js?rev=1"></script>';
+const INJECT = '<script id="w8m-loon-v07-remote" src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07-browser-loader.js?rev=2"></script>';
 
 function asciiBytes(text) {
   const out = new Uint8Array(text.length);
@@ -85,6 +85,6 @@ try {
     }
   }
 } catch (e) {
-  console.log('[W8M v0.7 remote v4] ' + e);
+  console.log('[W8M v0.7 remote v5] ' + e);
   $done({});
 }
