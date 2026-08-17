@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R2 Experimental
+#!desc= lightnovel.fun 手机布局优化 R2：不用 Rewrite，改用 http-response 仅注入 GET HTML；POST 搜索/登录/发帖请求完全不碰。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun(?:\/|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/7ae0c795c507f7c72f8f0fc207e05ff0ad1050d5/lightnovel/lightnovel-r2-inject.js,requires-body=true,binary-body-mode=false,timeout=15,tag=LightNovel-Mobile-R2,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
