@@ -1,0 +1,19 @@
+#!name= Wenku8 Mobile v0.7 · Remote R12 Experimental
+#!desc= 保留稳定 R10；R12 搜索实验：/so.php 的 POST 请求完全不改，只在响应已被 Loon 解成字符串时注入稳定 v0.7；否则自动放行原始搜索结果，不应白屏。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+# 搜索提交：完全不设置 http-request，保持 /so.php 原始 POST 请求字节级不变
+# 搜索结果：仅尝试 response 适配；binary-body-mode=false，让 Loon 尝试提供 String
+http-response ^https:\/\/www\.wenku8\.net\/so\.php(?:[\/?]|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/696873baf161ea02c786ab0ed36685344fafc5f4/wenku8/wenku8-search-response-r12.js,requires-body=true,binary-body-mode=false,timeout=15,tag=Wenku8-Search-Mobile-R12,enable=true
+# 其余 Wenku8 页面：保持稳定 R8 逻辑，并明确排除 /so.php
+http-request ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-R12,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/bceedc73a367403dcb9dbc673ffd7ebdb482f1d7/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-R12,enable=true
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
