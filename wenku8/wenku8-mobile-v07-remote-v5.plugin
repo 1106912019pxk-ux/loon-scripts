@@ -1,0 +1,15 @@
+#!name= Wenku8 Mobile v0.7 Remote v5
+#!desc= 纯远程版 Wenku8 Mobile v0.7。修复 Base64 非法字符；固定 loader 与 injector 提交；无需 iCloud / Stay。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+http-request ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-v5,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/0f6af6ed5a0d17dbbc5f7c17cb0a152fcd4b1a7d/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-v5,enable=true
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
