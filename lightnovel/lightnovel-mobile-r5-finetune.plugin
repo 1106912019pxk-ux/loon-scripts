@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R5 Fine Tune
+#!desc= 基于稳定 R3 的小幅微调：双列列表稍向中间收；详情封面放大并与标题顶部对齐；保留“好书推荐”修复。只处理 GET HTML，POST 搜索/登录/发帖不碰。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun(?:\/|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/0b968f80865e02ed3d776f630bf61714b62c9f79/lightnovel/lightnovel-r5-inject.js,requires-body=true,binary-body-mode=false,timeout=15,tag=LightNovel-Mobile-R5,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
