@@ -1,8 +1,8 @@
 /**
  * Wenku8 Mobile v0.7 - Pure Remote Loon Injector
- * v9: pin clean-source payload loader commit.
+ * Remote R8: pin browser loader to exact commit 0963019a...
  */
-const INJECT = '<script id="w8m-loon-v07-remote" src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@d92367d8649cd98d5efdf5cc1e7f3fa66a6ab083/wenku8/wenku8-mobile-v07-browser-loader.js"></script>';
+const INJECT = '<script id="w8m-loon-v07-remote" src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@0963019a240d4752326a050b6e2293a271e517ad/wenku8/wenku8-mobile-v07-browser-loader.js"></script>';
 
 function asciiBytes(text) {
   const out = new Uint8Array(text.length);
@@ -85,6 +85,6 @@ try {
     }
   }
 } catch (e) {
-  console.log('[W8M v0.7 remote v9] ' + e);
+  console.log('[W8M v0.7 Remote R8] ' + e);
   $done({});
 }
