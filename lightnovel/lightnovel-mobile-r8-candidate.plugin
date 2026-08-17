@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R8 Candidate
+#!desc= 基于稳定 R3：热门/最近更新双列区域自动按实际屏幕宽度平衡两侧留白与中缝；详情页封面对齐只在隐藏阶段完成并锁定，避免显示后再次下移。保留 R7 的详情尺寸与好书推荐修复。仅处理 GET HTML，POST 搜索/登录/发帖不碰。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun(?:\/|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/e778b98333e5a1e7aebed707d91afda9b902ff7d/lightnovel/lightnovel-r8-inject.js,requires-body=true,binary-body-mode=false,timeout=15,tag=LightNovel-Mobile-R8,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
