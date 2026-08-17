@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R9 Candidate
+#!desc= 基于稳定 R3：保留 R8 已验证的热门/最近更新双列中缝优化；详情页取消封面对标题的二次下移对齐，保留上方初始位置，并将封面放大、适度利用左侧空白。仅处理 GET HTML，POST 搜索/登录/发帖不碰。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun(?:\/|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/035a55c230f441edae43eb905c1ac8a2d684f9e7/lightnovel/lightnovel-r9-inject.js,requires-body=true,binary-body-mode=false,timeout=15,tag=LightNovel-Mobile-R9,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
