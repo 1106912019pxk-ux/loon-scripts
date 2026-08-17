@@ -1,0 +1,10 @@
+#!name= 轻之国度 · 主屏幕图标 R2 CDN
+#!desc= 独立插件：显式注入唯一 apple-touch-icon 地址并接管图标请求；插件与脚本均使用 jsDelivr 固定版本，避免 raw.githubusercontent.com 下载失败。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun\/?(?:\?.*)?$ script-path=https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@4ba98206ef0c6ce79234491d4d0443320892c0dd/lightnovel/lightnovel-webapp-head.js,requires-body=true,binary-body-mode=false,timeout=10,tag=LightNovel-WebApp-Head-R2-CDN,enable=true
+http-request ^https:\/\/(?:www\.)?lightnovel\.fun\/apple-touch-icon[^\/?]*\.png(?:\?.*)?$ script-path=https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@4ba98206ef0c6ce79234491d4d0443320892c0dd/lightnovel/lightnovel-webapp-icon.js,timeout=10,tag=LightNovel-WebApp-Icon-R2-CDN,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
