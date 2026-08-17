@@ -1,13 +1,10 @@
-#!name= Web App 主屏幕图标测试 · Legacy R2
-#!desc= 兼容旧版 Loon：直接接管 iOS 添加到主屏幕时请求的 /apple-touch-icon*.png，并重定向到 GitHub 自定义图标；同时保留 HTML 注入作为兜底。
+#!name= Web App 主屏幕图标测试 · Legacy R3
+#!desc= 兼容旧版 Loon：直接接管 iOS 添加到主屏幕请求的 /apple-touch-icon*.png，并原地返回 GitHub 自定义 PNG；不依赖 302。
 #!author= OpenAI
 
 [Rewrite]
-# iOS / SafariViewService 添加到主屏幕时会主动请求这些默认 touch icon 路径；直接重定向到自定义 PNG
-^https:\/\/example\.com\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ 302 https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=3
-
-# HTML 注入保留作为兜底
-^https:\/\/example\.com\/?(?:\?.*)?$ response-body-replace-regex (?i)<\/head> <link\x20rel="apple-touch-icon"\x20sizes="180x180"\x20href="https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=3"><link\x20rel="icon"\x20href="https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=3"><meta\x20name="apple-mobile-web-app-capable"\x20content="yes"><\/head>
+# SafariViewService 会请求默认 touch icon 路径；直接返回 PNG 本体
+^https:\/\/example\.com\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ mock-response-body data-type=png data-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=4 status-code=200
 
 [MITM]
 hostname = example.com
