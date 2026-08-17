@@ -1,0 +1,20 @@
+#!name= Wenku8 Mobile v0.7 · Remote R13 Rewrite Experimental
+#!desc= 保留稳定 R10；R13 不对 /so.php 使用 http-request/http-response 脚本，改用 Rewrite 在搜索结果 HTML 尾部注入稳定 v0.7 loader。其他页面沿用稳定 R8。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+# 其余 Wenku8 页面：保持稳定 R8 逻辑；/so.php 完全排除
+http-request ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-R13,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/bceedc73a367403dcb9dbc673ffd7ebdb482f1d7/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-R13,enable=true
+
+[Rewrite]
+# 搜索 POST 请求保持原样；只在搜索结果响应体末尾通过 Rewrite 注入稳定 v0.7 browser loader
+^https:\/\/www\.wenku8\.net\/so\.php(?:[\/?]|$) response-body-replace-regex (?i)<\/body> <script\x20id="w8m-loon-v07-remote"\x20src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@0963019a240d4752326a050b6e2293a271e517ad/wenku8/wenku8-mobile-v07-browser-loader.js"></script></body>
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
