@@ -1,9 +1,9 @@
-#!name= Web App 主屏幕图标测试 · Script R4
-#!desc= 兼容现有 Loon 脚本能力：接管 iOS 添加到主屏幕请求的 /apple-touch-icon*.png，由 request-script 直接返回 GitHub PNG。
+#!name= Web App 主屏幕图标测试 · Script R5
+#!desc= 接管 iOS 添加到主屏幕请求的 /apple-touch-icon*.png，由 request-script 返回 GitHub PNG。R5 修复占位 PNG 上传损坏并强化二进制返回。
 #!author= OpenAI
 
 [Script]
-http-request ^https:\/\/example\.com\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/webapp-icon-mock.js?v=5,timeout=10,tag=WebApp-Icon-R4,enable=true
+http-request ^https:\/\/example\.com\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/webapp-icon-mock.js?v=6,timeout=10,tag=WebApp-Icon-R5,enable=true
 
 [MITM]
 hostname = example.com
