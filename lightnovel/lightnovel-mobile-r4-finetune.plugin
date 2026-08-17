@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R4 Fine Tune
+#!desc= 基于稳定 R3 的小幅微调：恢复“好书推荐”宽度适配；热门/最近更新等列表保持原站；详情封面稍微放大并下移。只处理 GET HTML，POST 搜索/登录/发帖不碰。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun(?:\/|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/049683b15b71a871f0393b226e534759ae1b7803/lightnovel/lightnovel-r4-inject.js,requires-body=true,binary-body-mode=false,timeout=15,tag=LightNovel-Mobile-R4,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
