@@ -1,10 +1,9 @@
-#!name= Web App 主屏幕图标测试 · Legacy R3
-#!desc= 兼容旧版 Loon：直接接管 iOS 添加到主屏幕请求的 /apple-touch-icon*.png，并原地返回 GitHub 自定义 PNG；不依赖 302。
+#!name= Web App 主屏幕图标测试 · Script R4
+#!desc= 兼容现有 Loon 脚本能力：接管 iOS 添加到主屏幕请求的 /apple-touch-icon*.png，由 request-script 直接返回 GitHub PNG。
 #!author= OpenAI
 
-[Rewrite]
-# SafariViewService 会请求默认 touch icon 路径；直接返回 PNG 本体
-^https:\/\/example\.com\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ mock-response-body data-type=png data-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/icon.png?v=4 status-code=200
+[Script]
+http-request ^https:\/\/example\.com\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/webapp-icon-test/webapp-icon-mock.js?v=5,timeout=10,tag=WebApp-Icon-R4,enable=true
 
 [MITM]
 hostname = example.com
