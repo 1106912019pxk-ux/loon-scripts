@@ -1,9 +1,13 @@
-#!name= 轻之国度 · 主屏幕图标
-#!desc= 独立插件：仅接管 iOS 添加到主屏幕时的 apple-touch-icon 请求，替换为自定义轻之国度图标；不修改网页 UI。
+#!name= 轻之国度 · 主屏幕图标 R2
+#!desc= 独立插件：显式注入唯一 apple-touch-icon 地址，并接管相关图标请求，避免 iOS 继续使用网站旧图标/旧缓存；不改网页布局。
 #!author= OpenAI
 
 [Script]
-http-request ^https:\/\/(?:www\.)?lightnovel\.fun\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-webapp-icon.js?v=1,timeout=10,tag=LightNovel-WebApp-Icon,enable=true
+# 首页响应：删除原有 touch icon 声明，并注入唯一图标 URL
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun\/?(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-webapp-head.js?v=2,requires-body=true,binary-body-mode=false,timeout=10,tag=LightNovel-WebApp-Head-R2,enable=true
+
+# 图标请求：覆盖默认路径、尺寸路径、precomposed，以及我们注入的唯一路径
+http-request ^https:\/\/(?:www\.)?lightnovel\.fun\/apple-touch-icon[^\/?]*\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-webapp-icon.js?v=2,timeout=10,tag=LightNovel-WebApp-Icon-R2,enable=true
 
 [MITM]
 hostname = lightnovel.fun,*.lightnovel.fun
