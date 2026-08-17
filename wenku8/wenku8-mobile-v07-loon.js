@@ -1,8 +1,8 @@
 /**
  * Wenku8 Mobile v0.7 - Pure Remote Loon Injector
- * v6: pin browser loader to an exact Git commit to avoid CDN/main cache drift.
+ * v7: pin sanitized Base64 browser loader commit.
  */
-const INJECT = '<script id="w8m-loon-v07-remote" src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@c6a808583a403acca8460f4082f3b9008dbc6ed4/wenku8/wenku8-mobile-v07-browser-loader.js"></script>';
+const INJECT = '<script id="w8m-loon-v07-remote" src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@0b8327f8c6be4fa53a0b48926dea5898e78673d6/wenku8/wenku8-mobile-v07-browser-loader.js"></script>';
 
 function asciiBytes(text) {
   const out = new Uint8Array(text.length);
@@ -85,6 +85,6 @@ try {
     }
   }
 } catch (e) {
-  console.log('[W8M v0.7 remote v6] ' + e);
+  console.log('[W8M v0.7 remote v7] ' + e);
   $done({});
 }
