@@ -1,0 +1,20 @@
+#!name= Wenku8 Mobile v0.7 · Remote R14 Search Layout
+#!desc= 基于已成功的 R13 Rewrite；仅修复 /so.php 搜索结果页横向溢出与老式分页。R10/R13 保留，可随时回退。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+# 其余 Wenku8 页面：保持稳定 R8 逻辑；/so.php 完全排除 Script
+http-request ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-R14,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/bceedc73a367403dcb9dbc673ffd7ebdb482f1d7/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-R14,enable=true
+
+[Rewrite]
+# 搜索 POST 保持原样；沿用 R13 的 Rewrite 注入 v0.7，并追加 R14 搜索布局/分页补丁
+^https:\/\/www\.wenku8\.net\/so\.php(?:[\/?]|$) response-body-replace-regex (?i)<\/body> <script\x20id="w8m-loon-v07-remote"\x20src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@0963019a240d4752326a050b6e2293a271e517ad/wenku8/wenku8-mobile-v07-browser-loader.js"></script><script\x20src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@cc88753b277276607e4e12af9ab8dc6605dff0d8/wenku8/wenku8-search-layout-r14.js"></script></body>
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
