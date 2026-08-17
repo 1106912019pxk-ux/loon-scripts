@@ -29,7 +29,10 @@
       throw new Error('fflate 未加载');
     }
 
-    const payloadUrl = 'https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07.payload.txt?rev=6';
+    // IMPORTANT: pin the payload to the exact commit that contains the clean
+    // gzip/base64 generated from the locally verified Wenku8 Mobile v0.7 file.
+    // Do not use @main here: jsDelivr caches mutable branch aliases.
+    const payloadUrl = 'https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@d87db28ac339ce9080b68d63bbfb6ed059d3ff2d/wenku8/wenku8-mobile-v07.payload.txt';
     const r = await fetch(payloadUrl, { cache: 'no-store', mode: 'cors' });
     if (!r.ok) throw new Error('payload HTTP ' + r.status);
 
