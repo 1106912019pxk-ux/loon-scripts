@@ -1,5 +1,5 @@
 #!name= Wenku8 Mobile v0.7 Remote v2
-#!desc= 纯远程版 Wenku8 Mobile v0.7。修复脚本不命中与 zstd 压缩问题；无需 iCloud / Stay。
+#!desc= 纯远程版 Wenku8 Mobile v0.7。修复脚本不命中与压缩问题；无需 iCloud / Stay。
 #!author= OpenAI
 
 [Rule]
@@ -9,7 +9,7 @@ DOMAIN-SUFFIX,wkcdn.net,DIRECT
 
 [Script]
 http-request ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression,enable=true
-http-response ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-mobile-v07-loon.js?v=3,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-mobile-v07-loon.js?v=4,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07,enable=true
 
 [MITM]
 hostname = www.wenku8.net,wenku8.net
