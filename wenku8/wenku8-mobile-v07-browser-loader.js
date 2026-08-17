@@ -29,7 +29,7 @@
       throw new Error('fflate 未加载');
     }
 
-    const payloadUrl = 'https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07.payload.txt?rev=5';
+    const payloadUrl = 'https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07.payload.txt?rev=6';
     const r = await fetch(payloadUrl, { cache: 'no-store', mode: 'cors' });
     if (!r.ok) throw new Error('payload HTTP ' + r.status);
 
