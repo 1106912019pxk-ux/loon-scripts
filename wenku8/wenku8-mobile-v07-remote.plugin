@@ -1,0 +1,14 @@
+#!name= Wenku8 Mobile v0.7 Remote
+#!desc= 纯远程版 Wenku8 Mobile v0.7。无需 iCloud / 本地脚本 / Stay。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+http-response ^https?:\/\/(?:www\.)?wenku8\.net\/(?!wap(?:\/|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8 Mobile v0.7 Remote,enable=true
+
+[MITM]
+hostname = wenku8.net,*.wenku8.net
