@@ -1,0 +1,9 @@
+#!name= 轻之国度 · 主屏幕图标
+#!desc= 独立插件：仅接管 iOS 添加到主屏幕时的 apple-touch-icon 请求，替换为自定义轻之国度图标；不修改网页 UI。
+#!author= OpenAI
+
+[Script]
+http-request ^https:\/\/(?:www\.)?lightnovel\.fun\/apple-touch-icon(?:-\d+x\d+)?(?:-precomposed)?\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-webapp-icon.js?v=1,timeout=10,tag=LightNovel-WebApp-Icon,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
