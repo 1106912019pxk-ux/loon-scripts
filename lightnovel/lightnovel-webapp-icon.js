@@ -1,7 +1,7 @@
-// 轻之国度 Web App 主屏幕图标
+// 轻之国度 Web App 主屏幕图标 · R2
 // 接管 iOS / SafariViewService 对 apple-touch-icon 的请求，并返回自定义 PNG。
 
-var ICON_URL = "https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-icon.png?v=1";
+var ICON_URL = "https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-icon.png?v=2";
 
 $httpClient.get({
   url: ICON_URL,
@@ -19,7 +19,7 @@ $httpClient.get({
         headers: {
           "Content-Type": "text/plain; charset=utf-8",
           "Cache-Control": "no-store",
-          "X-Loon-LightNovel-Icon": "fetch-failed"
+          "X-Loon-LightNovel-Icon": "R2-fetch-failed"
         },
         body: "icon fetch failed: " + reason
       }
@@ -41,7 +41,7 @@ $httpClient.get({
         "Content-Type": "image/png",
         "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
         "Pragma": "no-cache",
-        "X-Loon-LightNovel-Icon": "R1"
+        "X-Loon-LightNovel-Icon": "R2"
       },
       body: bytes
     }
