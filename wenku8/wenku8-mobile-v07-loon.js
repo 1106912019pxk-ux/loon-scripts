@@ -45,7 +45,7 @@ try {
   const url = ($request && $request.url) || '';
   if (!/^https?:\/\/(?:www\.)?wenku8\.net\//i.test(url) ||
       /^https?:\/\/(?:www\.)?wenku8\.net\/wap(?:\/|$)/i.test(url)) {
-    $done();
+    $done({});
   } else {
     const headers = Object.assign({}, ($response && $response.headers) || {});
     const body = $response && $response.body;
@@ -53,7 +53,7 @@ try {
 
     if (body instanceof Uint8Array) {
       if (findAsciiIgnoreCase(body,'id="w8m-loon-v07-remote"') >= 0) {
-        $done();
+        $done({});
       } else {
         let pos = findAsciiIgnoreCase(body,'</body>');
         if (pos < 0) pos = findAsciiIgnoreCase(body,'</html>');
@@ -61,7 +61,7 @@ try {
       }
     } else if (typeof body === 'string') {
       if (body.includes('id="w8m-loon-v07-remote"')) {
-        $done();
+        $done({});
       } else {
         const low = body.toLowerCase();
         let pos = low.lastIndexOf('</body>');
@@ -71,16 +71,16 @@ try {
     }
 
     if (!modified) {
-      $done();
+      $done({});
     } else {
       deleteHeader(headers,'content-length');
       deleteHeader(headers,'content-encoding');
       deleteHeader(headers,'content-security-policy');
       deleteHeader(headers,'content-security-policy-report-only');
-      $done({response:{status:($response&&$response.status)||200,headers:headers,body:modified}});
+      $done({status:($response&&$response.status)||200,headers:headers,body:modified});
     }
   }
 } catch(e) {
   console.log('[W8M remote injector] '+e);
-  $done();
+  $done({});
 }
