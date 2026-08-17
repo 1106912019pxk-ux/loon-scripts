@@ -29,20 +29,38 @@
       throw new Error('fflate 未加载');
     }
 
-    const payloadUrl = 'https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07.payload.txt?rev=3';
+    const payloadUrl = 'https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@main/wenku8/wenku8-mobile-v07.payload.txt?rev=4';
     const r = await fetch(payloadUrl, { cache: 'no-store', mode: 'cors' });
     if (!r.ok) throw new Error('payload HTTP ' + r.status);
 
-    const b64 = (await r.text()).trim();
-    const bin = atob(b64);
+    const sourceText = await r.text();
+    let b64 = sourceText.replace(/[^A-Za-z0-9+/=]/g, '');
+    while (b64.length % 4) b64 += '=';
+    if (b64.length < 100) throw new Error('payload Base64 内容过短: ' + b64.length);
+
+    let bin;
+    try {
+      bin = atob(b64);
+    } catch (e) {
+      throw new Error('Base64 解码失败，长度=' + b64.length + '：' + (e && e.message ? e.message : e));
+    }
+
     const gz = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; i++) gz[i] = bin.charCodeAt(i);
+    if (gz.length < 2 || gz[0] !== 0x1f || gz[1] !== 0x8b) {
+      throw new Error('payload 不是有效 gzip，magic=' + (gz[0]||0).toString(16) + ',' + (gz[1]||0).toString(16));
+    }
 
-    const raw = window.fflate.gunzipSync(gz);
+    let raw;
+    try {
+      raw = window.fflate.gunzipSync(gz);
+    } catch (e) {
+      throw new Error('gzip 解压失败：' + (e && e.message ? e.message : e));
+    }
+
     const js = new TextDecoder('utf-8').decode(raw);
-    if (!js || js.length < 1000) throw new Error('v0.7 解压结果异常');
+    if (!js || js.length < 1000) throw new Error('v0.7 解压结果异常，长度=' + js.length);
 
-    // Execute as a Blob-backed external script instead of inline text/eval.
     const blob = new Blob([js], { type: 'text/javascript;charset=utf-8' });
     const blobUrl = URL.createObjectURL(blob);
     try {
