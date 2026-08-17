@@ -1,0 +1,15 @@
+#!name= Wenku8 Mobile v0.7 Remote v7
+#!desc= 纯远程版 Wenku8 Mobile v0.7。使用由已验证 v0.7 原文件重新生成的干净 payload；无需 iCloud / Stay。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+http-request ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-v7,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/fc3616ed9e1c6e04d13c78e67c1ffc9d582b2e62/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-v7,enable=true
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
