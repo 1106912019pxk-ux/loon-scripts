@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R1 Experimental
+#!desc= lightnovel.fun 手机布局优化 R1：只通过 Rewrite 注入前端脚本，不修改搜索/登录/发帖等请求。重点修复横向溢出、顶部菜单、作品详情与目录。
+#!author= OpenAI
+
+[Rewrite]
+^https:\/\/(?:www\.)?lightnovel\.fun\/ response-body-replace-regex (?i)<\/body> <script\x20id="lnf-mobile-r1-loader"\x20src="https://cdn.jsdelivr.net/gh/1106912019pxk-ux/loon-scripts@725868fe4a425d0e5f501049135fea3370e86571/lightnovel/lightnovel-mobile-r1.js"></script></body>
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
