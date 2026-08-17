@@ -1,0 +1,9 @@
+#!name= 轻之国度 Mobile · R6 Alignment Fix
+#!desc= 基于稳定 R3 的精确修复：双列列表缩小中间 gutter、保留两侧留白；详情封面清除顶部白边并与标题顶边精确对齐。好书推荐沿用已验证修复。仅处理 GET HTML，POST 搜索/登录/发帖不碰。
+#!author= OpenAI
+
+[Script]
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun(?:\/|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/f7e4433c0d22ba2dd8cc6f7a171d73058d8a808e/lightnovel/lightnovel-r6-inject.js,requires-body=true,binary-body-mode=false,timeout=15,tag=LightNovel-Mobile-R6,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
