@@ -1,0 +1,20 @@
+#!name= Wenku8 Mobile v0.7 · Remote R11 Experimental
+#!desc= 保留稳定 R10；R11 实验性优化 /so.php 搜索结果页：搜索 POST 不走 identity/no-cache，仅改为 gzip，响应解压后再注入稳定 v0.7。其他页面沿用稳定 R8。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+# 搜索提交：只把 Accept-Encoding 限制为 gzip，不改 POST body/cookie/cache header
+http-request ^https:\/\/www\.wenku8\.net\/so\.php(?:[\/?]|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/038444f16948a8d276d769230fd9d2e5d46ece63/wenku8/wenku8-search-gzip-request.js,timeout=10,tag=Wenku8-Search-Gzip-R11,enable=true
+# 搜索结果：Loon 解 gzip 后注入与稳定 R8 相同的 v0.7 browser loader
+http-response ^https:\/\/www\.wenku8\.net\/so\.php(?:[\/?]|$) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/038444f16948a8d276d769230fd9d2e5d46ece63/wenku8/wenku8-search-response-r11.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Search-Mobile-R11,enable=true
+# 其余 Wenku8 页面：保持稳定 R8 逻辑
+http-request ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-R11,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/(?!so\.php(?:[\/?]|$)) script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/bceedc73a367403dcb9dbc673ffd7ebdb482f1d7/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-R11,enable=true
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
