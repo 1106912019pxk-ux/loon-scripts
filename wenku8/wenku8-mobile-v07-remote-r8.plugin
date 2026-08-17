@@ -1,0 +1,15 @@
+#!name= Wenku8 Mobile v0.7 · Remote R8
+#!desc= Wenku8 Mobile 本体固定 v0.7；Loon 远程包装 R8。固定 loader/payload 提交，绕过 jsDelivr @main 缓存。
+#!author= OpenAI
+
+[Rule]
+DOMAIN-SUFFIX,wenku8.net,DIRECT
+DOMAIN-SUFFIX,wenku8.com,DIRECT
+DOMAIN-SUFFIX,wkcdn.net,DIRECT
+
+[Script]
+http-request ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/wenku8/wenku8-no-compress.js?v=1,timeout=10,tag=Wenku8-NoCompression-R8,enable=true
+http-response ^https:\/\/www\.wenku8\.net\/ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/bceedc73a367403dcb9dbc673ffd7ebdb482f1d7/wenku8/wenku8-mobile-v07-loon.js,requires-body=true,binary-body-mode=true,timeout=15,tag=Wenku8-Mobile-v07-R8,enable=true
+
+[MITM]
+hostname = www.wenku8.net,wenku8.net
