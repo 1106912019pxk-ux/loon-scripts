@@ -1,0 +1,13 @@
+#!name= 轻之国度 · 主屏幕图标 R3 Local
+#!desc= 独立插件：运行时不再从 GitHub/图床下载 PNG。图标已嵌入本地脚本；同时注入唯一 apple-touch-icon 地址以绕过 iOS 旧缓存。
+#!author= OpenAI
+
+[Script]
+# 首页响应：移除原有 touch icon 声明，并注入唯一图标 URL
+http-response ^https:\/\/(?:www\.)?lightnovel\.fun\/?(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-webapp-head.js?v=3,requires-body=true,binary-body-mode=false,timeout=10,tag=LightNovel-WebApp-Head-R3,enable=true
+
+# 图标请求：PNG 已直接嵌入脚本；触发时只在 Loon 本地返回，不再额外请求 GitHub
+http-request ^https:\/\/(?:www\.)?lightnovel\.fun\/apple-touch-icon[^\/?]*\.png(?:\?.*)?$ script-path=https://raw.githubusercontent.com/1106912019pxk-ux/loon-scripts/main/lightnovel/lightnovel-webapp-icon.js?v=3,timeout=10,tag=LightNovel-WebApp-Icon-R3-Local,enable=true
+
+[MITM]
+hostname = lightnovel.fun,*.lightnovel.fun
